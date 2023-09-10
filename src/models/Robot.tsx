@@ -212,21 +212,11 @@ export class Robot extends Graphic {
         this.movement = {...this.movement, ...Movements[direction]};
     }
 
-    /**
-     * Kontroluje, zda robot dorazil do cíle
-     * @param {Graphic[]} finishes Seznam cílů na mapě
-     * @returns {boolean} True pokud je v cíli
-     */
     isInFinish(finishes : Graphic[]) : boolean{
-        return finishes.some(f => this.isCollision(f));
+        return finishes.some(f => f.position.x === this.position.x && f.position.y === this.position.y);
     }
 
-    /**
-     * Kontroluje zda robot nenarazil do překážky
-     * @param {Graphic} graphic2 Grafika pro porovnání
-     * @param {Robot} graphic1 Zkoumaný robot
-     * @returns {boolean} True pokud narazil
-     */
+
     isCollision(graphic2 : Graphic, graphic1 : Robot = this){
         return !((graphic1.boundingRect.y2 < graphic2.boundingRect.y1) ||
                 (graphic1.boundingRect.y1 > graphic2.boundingRect.y2) ||

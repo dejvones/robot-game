@@ -1,0 +1,28 @@
+[
+    {
+        "type": 1,
+        "position": {
+            "x": 50,
+            "y": 60
+        }
+    },
+    {
+        "type": 2,
+        "position":{
+            "x": 50,
+            "y": 200
+        },
+        "movementType": 3
+    },
+    {
+        "type": 0,
+        "position": {
+            "x": 0,
+            "y": 0
+        },
+        "size": {
+            "width": 800,
+            "height": 50
+        }
+    }
+]

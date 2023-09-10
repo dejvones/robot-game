@@ -14,6 +14,7 @@ import { Wall } from "../models/Wall";
 import { GraphicType } from "../models/enums";
 import { redraw } from "./GraphicsLogic";
 import { Error, Success } from "./Messages";
+import data from '../data/levels/01.json'
 
 /**
  * Uloží veškerá data o mapě do slotu podle parametru
@@ -43,7 +44,7 @@ export function saveData(id : number){
  * @param id {number} Číslo slotu
  */
 export function loadData(id : number){
-    const data = localStorage.getItem(id.toString());
+    /*const data = localStorage.getItem(id.toString());
     if (!data || data === ""){
         Error('Žádná data nejsou uložena!');
         return;
@@ -62,7 +63,25 @@ export function loadData(id : number){
                 finalData = [...finalData, new Robot(g.position, ctx, g.movementType)];
                 break;
         }
+    })*/
+
+
+    const graphicsToSave = data as IGraphicSave[];
+    let finalData : Graphic[] = [];
+    graphicsToSave.forEach(g => {
+        switch(g.type){
+            case GraphicType.Wall:
+                finalData = [...finalData, new Wall(g.position, g.size ?? {width: 10, height: 10}, ctx ?? undefined)];
+                break;
+            case GraphicType.Finish:
+                finalData = [...finalData, new Finish(g.position, ctx)];
+                break;
+            default:
+                finalData = [...finalData, new Robot(g.position, ctx, g.movementType)];
+                break;
+        }
     })
+
     setGraphics(finalData);
     redraw();
     Success('Mapa byla načtena.');

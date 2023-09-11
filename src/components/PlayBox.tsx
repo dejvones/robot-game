@@ -1,57 +1,23 @@
-/**
- * Komponenta zobrazující box s možností spustit a zastavit simulaci
- * @category Components
- * @module PlayBox
- */
-
-import { Button, ButtonGroup } from 'react-bootstrap';
-import { OperationType } from '../models/enums';
 import { FaPlay, FaStop } from 'react-icons/fa';
 
-/**
- * Rozhraní jednotlivých vstupů a výstupů komponenty PlayBox
- * @category Components
- */
 interface playBoxProps {
-    /**
-     * Output - Uživatel vybral novoý status
-     * @param _ {boolean} Nová hodnota 
-     * @returns {void}
-     */
     setStatus(_ : boolean) : void,
-    /**
-     * Input - Zda aktuálně běží simulace (True - běží, False - neběží)
-     */
     status : boolean,
-    /**
-     * Input - Drží aktuální vybranou operaci
-     */
-    operation: OperationType
 }
 
-/**
- * Komponenta PlayBox
- * @function PlayBox
- * @param props {playBoxProps} 
- * @returns {ReactElement}
- */
-export const PlayBox = ({setStatus, status, operation} : playBoxProps) => {
+export const PlayBox = ({setStatus, status} : playBoxProps) => {
     return (
-        <ButtonGroup className="margin-10">
-                <Button variant={status ? "primary" : "secondary"} onClick={() => {setStatus(true)}}
-                    disabled={operation !== OperationType.Cursor}>
-                    <div>
-                        <FaPlay size={25}/>
-                        <h5 className='text-button'>Spustit</h5>
-                    </div>
-                </Button>
-                <Button variant={!status ? "primary" : "secondary"} onClick={() => {setStatus(false)}}
-                    disabled={operation !== OperationType.Cursor}>
-                    <div>
-                        <FaStop size={25}/>
-                        <h5 className='text-button'>Zastavit</h5>
-                    </div>
-                </Button>
-        </ButtonGroup>
+        <div className='d-flex flex-column align-items-center'>
+            <h5 className={status ? 'text-success' : 'text-danger'}>Simulation: {status ? 'ON' : 'OFF'}</h5>
+            <div className='btn-group' role='group'>
+                <button type='button' className='p-3 btn btn-success' onClick={() => {setStatus(true)}}>
+                <FaPlay size={25}/>
+                </button>
+                <button type='button' className='p-3 btn btn-danger' onClick={() => {setStatus(false)}}>
+                <FaStop size={25}/>
+                </button>
+            </div>
+        </div>
+        
     )
 }

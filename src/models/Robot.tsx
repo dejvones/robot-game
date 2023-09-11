@@ -2,28 +2,12 @@ import { getBoundingRect } from "../utils/GraphicsLogic";
 import { Graphic } from "./Graphic";
 import { Position } from "./IGraphic";
 import { Wall } from "./Wall";
-import { Directions, GraphicType, MovementType } from "./enums";
+import { Directions, GraphicType } from "./enums";
 
-/**
- * Rozhraní jednotlivých vstupů a výstupů modelu Robot
- * @category Models
- */
+
 interface Movement {
-    /**
-     * Input - Druh pohybu
-     */
-    type: MovementType,
-    /**
-     * Input - Aktuální směr pohybu
-     */
     curDirection: Directions,
-    /**
-     * Input - Posun v ose x
-     */
     dx: number,
-    /**
-     * Input - Posun v ose y
-     */
     dy: number
 }
 
@@ -52,7 +36,7 @@ export class Robot extends Graphic {
      * @property {HTMLImageElement} image Obrázek robota
      * @property {Movement} movement Druh pohybu
      */
-    constructor(position : Position, ctx : CanvasRenderingContext2D, moveType : MovementType = MovementType.Random){
+    constructor(position : Position, ctx : CanvasRenderingContext2D){
         super(position, {width: 32, height: 32}, GraphicType.Robot, ctx);
         const image = new Image();
         image.src = "/assets/robot.png";
@@ -61,18 +45,7 @@ export class Robot extends Graphic {
         }
         this.image = image;
 
-        this.movement = {type: moveType, ...Movements[Directions.Up]};
-    }
-
-    /**
-     * Nastaví druh pohybu robota
-     * @param {MovementType} movementType Druh pohybu robota
-     * @returns {void}
-     */
-    setMovementType(movementType: MovementType) {
-        this.movement.type = movementType;
-        //reset pohybu pri zmeny nastaveni
-        this.movement = {...this.movement, ...Movements[Directions.Up]};
+        this.movement = Movements[Directions.Up];
     }
 
     /**
@@ -84,28 +57,7 @@ export class Robot extends Graphic {
         this.ctx.drawImage(this.image, this.position.x, this.position.y);
     }
     
-    /**
-     * Nastaví náhodně nový směr pohybu
-     * @returns {void}
-     */
-    randomMove() {
-        const index = Math.floor(Math.random() * 4);
-        switch (index) {
-            case 0:
-                this.movement = {...this.movement, ...Movements[Directions.Up]};
-                break;
-            case 1:
-                this.movement = {...this.movement, ...Movements[Directions.Right]};
-                break;
-            case 2:
-                this.movement = {...this.movement, ...Movements[Directions.Down]};
-                break;
-            case 3:
-                this.movement = {...this.movement, ...Movements[Directions.Left]};
-                break;
-        }
-    }
-
+    
     /**
      * Otočí robota o 90 stupňů doprava
      * @returns {void}
@@ -128,48 +80,6 @@ export class Robot extends Graphic {
     }
 
     /**
-     * Otočí robota o 90 stupňů doleva
-     * @returns {void}
-     */
-    leftHandMove() {
-        switch (this.movement.curDirection) {
-            case Directions.Up:
-                this.movement = {...this.movement, ...Movements[Directions.Left]};
-                break;
-            case Directions.Right:
-                this.movement = {...this.movement, ...Movements[Directions.Up]};
-                break;
-            case Directions.Down:
-                this.movement = {...this.movement, ...Movements[Directions.Right]};
-                break;
-            case Directions.Left:
-                this.movement = {...this.movement, ...Movements[Directions.Down]};
-                break;
-        }
-    }
-
-    /**
-     * Posune robota správným směrem, který byl dříve nastaven
-     * @returns {void}
-     */
-    customMove() {
-        switch (this.movement.curDirection) {
-            case Directions.Up:
-                this.movement = {...this.movement, ...Movements[Directions.Up]};
-                break;
-            case Directions.Right:
-                this.movement = {...this.movement, ...Movements[Directions.Right]};
-                break;
-            case Directions.Down:
-                this.movement = {...this.movement, ...Movements[Directions.Down]};
-                break;
-            case Directions.Left:
-                this.movement = {...this.movement, ...Movements[Directions.Left]};
-                break;
-        }
-    }
-
-    /**
      * Provede posun daného robota podle jeho směru pohybu, v případě kolize změní směr dle vybrané strategie
      * @param {Wall[]} walls Seznam zdí na mapě
      * @returns {Robot} Robot s novou pozicí
@@ -179,21 +89,7 @@ export class Robot extends Graphic {
         newRobot.boundingRect = getBoundingRect(newRobot.position, newRobot.size);
         //pokud nastane kolize, tak ho nemenim
         if (walls.some(w => this.isCollision(w,newRobot))){
-            //Urceni noveho pohybu
-            switch (this.movement.type) {
-                case MovementType.Random: 
-                    this.randomMove(); 
-                    break;
-                case MovementType.RightHand: 
-                    this.rightHandMove(); 
-                    break;
-                case MovementType.LeftHand: 
-                    this.leftHandMove(); 
-                    break;
-                default:
-                    this.customMove();
-                    break;
-            }
+            this.rightHandMove(); 
             return this;
         }
         //pokus nenastane kolize, tak ho menim

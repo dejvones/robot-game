@@ -25,7 +25,7 @@ export class Wall extends Graphic {
      */
     draw(){
         if (!this.ctx) return;
-        this.ctx.fillStyle = "#202124";
+        this.ctx.fillStyle = "#212529";
         this.ctx.fillRect(this.position.x, this.position.y, this.size.width, this.size.height);
     }
 

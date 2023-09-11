@@ -11,8 +11,7 @@
         "position":{
             "x": 50,
             "y": 200
-        },
-        "movementType": 3
+        }
     },
     {
         "type": 0,

@@ -1,17 +1,15 @@
 import Editor from '@monaco-editor/react';
+import { setEditorInput } from '../utils';
 
 export const EditorComponent = () => {
-    const options = {
+  const options = {
         contextmenu: false,
         minimap: {enabled: false}
     }
 
-    let lastValue = '';
-
   function handleEditorChange(value : string | undefined) : void {
     if (value)
-        lastValue = value;
-    console.log(lastValue);
+        setEditorInput(value);
   }
 
   return (

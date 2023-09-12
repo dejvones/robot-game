@@ -1,5 +1,14 @@
 import { GraphicType } from "./enums"
 
+export interface IGraphic{
+    position : Position;
+    size : Size;
+    boundingRect : BoundingRect;
+    ctx?: CanvasRenderingContext2D;
+    type: GraphicType;
+    draw() : void;
+}
+
 export interface Size {
     width: number,
     height: number

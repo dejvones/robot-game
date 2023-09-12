@@ -1,12 +1,9 @@
-import { ctx, setGraphics } from "../components/Canvas";
-import { Finish } from "../models/Finish";
-import { Graphic } from "../models/Graphic";
-import { IGraphicSave } from "../models/IGraphic";
-import { Robot } from "../models/Robot";
-import { Wall } from "../models/Wall";
-import { GraphicType } from "../models/enums";
-import { redraw } from "./GraphicsLogic";
-import data from '../data/levels/01.json'
+import { ctx } from "../../components/Canvas";
+import { redraw } from "../GraphicsLogic";
+import data from '../../data/levels/01.json'
+import { setGraphics } from "..";
+import { GraphicType, IGraphicSave } from "../../domains";
+import { Finish, Graphic, Robot, Wall } from "../../models";
 
 export function loadData(){
     const graphicsToSave = data as IGraphicSave[];
@@ -25,6 +22,6 @@ export function loadData(){
         }
     })
 
-    setGraphics(finalData);
+    setGraphics(finalData)
     redraw();
 }

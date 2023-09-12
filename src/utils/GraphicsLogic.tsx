@@ -1,7 +1,8 @@
-import { canvasSize, ctx, graphics } from "../components/Canvas";
+import { ctx } from "../components/Canvas";
 import { Graphic } from "../models/Graphic";
-import { BoundingRect, Position, Size } from "../models/IGraphic";
+import { BoundingRect, IGraphic, Position, Size } from "../domains/IGraphic";
 import { Wall } from "../models/Wall";
+import { canvasSize, graphics } from ".";
 
 export function getBoundingRect(position : Position, size: Size) : BoundingRect{
     return {
@@ -11,7 +12,7 @@ export function getBoundingRect(position : Position, size: Size) : BoundingRect{
         y2: position.y + size.height};
 }
 
-export function detectGraphic(position : Position) : Graphic | undefined {
+export function detectGraphic(position : Position) : IGraphic | undefined {
     return graphics.find(g => 
         (g.boundingRect.x1 <= position.x && position.x <= g.boundingRect.x2) && 
         (g.boundingRect.y1 <= position.y && position.y <= g.boundingRect.y2))

@@ -1,32 +1,11 @@
 import React, {useEffect} from 'react';
-import { redraw } from '../utils/GraphicsLogic';
-import { Graphic } from '../models/Graphic';
-import { Success, Warning } from '../utils/Messages';
-import { isAllDone, simulateStep, someCollision } from '../utils/SimulateLogic';
-import { loadData } from '../utils/StorageLogic';
+import { loadData } from '../utils/GameLogic/StorageLogic';
 import './styles.css';
-
-interface canvasProps {
-    status: boolean,
-    setStatus(_ : boolean) : void
-}
-
-
-export const canvasSize = {
-    width: 1200,
-    height: 800
-}
+import { canvasSize } from '../utils';
 
 export let ctx : CanvasRenderingContext2D;
 
-export let graphics : Graphic[] = [];
-export function setGraphics(g : Graphic[]){
-    graphics = g;
-}
-
-let playStatus = false;
-
-export const Canvas = ({status, setStatus} : canvasProps) => {
+export const Canvas = () => {
     const canvas = React.useRef<HTMLCanvasElement | null>(null);     
 
     useEffect(() => {
@@ -36,31 +15,6 @@ export const Canvas = ({status, setStatus} : canvasProps) => {
             loadData();
         }
     }, [canvas])
-    
-    useEffect(() => {
-        playStatus = status;
-        if (playStatus){
-            simulate();
-        }
-    // eslint-disable-next-line
-    }, [status])
-
-
-    async function simulate(){
-        if (someCollision()){
-            Warning('Výchozí pozice robota koliduje se zdí.');
-        }
-        while (!isAllDone() && playStatus){
-            graphics = simulateStep();
-            redraw();
-            await new Promise(res => setTimeout(res, 25));
-        }
-        //finished
-        if (isAllDone()){
-            setStatus(false);
-            Success('Všichni roboti dotazili do cíle.')
-        }
-    }
 
     return (
 

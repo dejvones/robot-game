@@ -10,3 +10,14 @@ export enum Directions {
     Down,
     Left,
 }
+
+export enum MoveCommand {
+    Go,
+    Left,
+    Right
+}
+
+export enum GameStatus {
+    Running,
+    Stopped
+}

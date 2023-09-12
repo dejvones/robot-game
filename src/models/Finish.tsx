@@ -1,6 +1,6 @@
 import { Graphic } from "./Graphic";
-import { Position } from "./IGraphic";
-import { GraphicType } from "./enums";
+import { Position } from "../domains/IGraphic";
+import { GraphicType } from "../domains/enums";
 
 export class Finish extends Graphic {
     image : HTMLImageElement;

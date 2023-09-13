@@ -1,5 +1,4 @@
 import React, {useEffect} from 'react';
-import { loadData } from '../utils/GameLogic/StorageLogic';
 import './styles.css';
 import { canvasSize } from '../utils';
 
@@ -12,7 +11,6 @@ export const Canvas = () => {
         const _ctx = canvas.current?.getContext('2d');
         if (_ctx){
             ctx = _ctx;
-            loadData();
         }
     }, [canvas])
 

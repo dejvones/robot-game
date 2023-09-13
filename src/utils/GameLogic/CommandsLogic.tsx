@@ -4,7 +4,7 @@ export function parseInput(input : string) : MoveCommand[] | undefined {
     if (input === '') return undefined;
     const tokens = input.toLocaleLowerCase().split(/\s+/);
     let result : number[] = [];
-    for(var token of tokens){
+    for(let token of tokens){
         switch(token){
             case 'go':
                 result.push(MoveCommand.Go);

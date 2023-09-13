@@ -1,0 +1,28 @@
+
+.levelGroup {
+    background-color: var(--bs-secondary);
+    width: 80vw;
+    margin: 2rem;
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+}
+
+.levelGroup h3 {
+    margin: 2rem;
+    color: var(--bs-dark);
+}
+
+.levelGroup div {
+    margin: 0.25rem;
+    display: flex;
+}
+
+.levelGroup .card {
+    background-color: var(--bs-dark);
+}
+
+.levelGroup .card h5 {
+    margin: 1rem 2rem;
+    color: white;
+}

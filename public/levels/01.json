@@ -1,0 +1,125 @@
+{
+    "name": "Basic instructions",
+    "levels": [
+        {
+            "graphics": [
+                {
+                    "type": 1,
+                    "position": {
+                        "x": 550,
+                        "y": 225
+                    }
+                },
+                {
+                    "type": 2,
+                    "position":{
+                        "x": 540,
+                        "y": 550
+                    }
+                },
+                {
+                    "type": 0,
+                    "position": {
+                        "x": 0,
+                        "y": 0
+                    },
+                    "size": {
+                        "width": 1200,
+                        "height": 200
+                    }
+                },
+                {
+                    "type": 0,
+                    "position": {
+                        "x": 0,
+                        "y": 0
+                    },
+                    "size": {
+                        "width": 1200,
+                        "height": 200
+                    }
+                }
+            ]
+        },
+        {
+            "graphics": [
+                {
+                    "type": 1,
+                    "position": {
+                        "x": 550,
+                        "y": 225
+                    }
+                },
+                {
+                    "type": 2,
+                    "position":{
+                        "x": 540,
+                        "y": 550
+                    }
+                },
+                {
+                    "type": 0,
+                    "position": {
+                        "x": 0,
+                        "y": 0
+                    },
+                    "size": {
+                        "width": 1200,
+                        "height": 200
+                    }
+                },
+                {
+                    "type": 0,
+                    "position": {
+                        "x": 0,
+                        "y": 0
+                    },
+                    "size": {
+                        "width": 1200,
+                        "height": 200
+                    }
+                }
+            ]
+        },
+        {
+            "graphics": [
+                {
+                    "type": 1,
+                    "position": {
+                        "x": 550,
+                        "y": 225
+                    }
+                },
+                {
+                    "type": 2,
+                    "position":{
+                        "x": 540,
+                        "y": 550
+                    }
+                },
+                {
+                    "type": 0,
+                    "position": {
+                        "x": 0,
+                        "y": 0
+                    },
+                    "size": {
+                        "width": 1200,
+                        "height": 200
+                    }
+                },
+                {
+                    "type": 0,
+                    "position": {
+                        "x": 0,
+                        "y": 0
+                    },
+                    "size": {
+                        "width": 1200,
+                        "height": 200
+                    }
+                }
+            ]
+        }
+    ]
+}

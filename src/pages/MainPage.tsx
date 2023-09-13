@@ -1,34 +1,48 @@
-import { useState } from "react";
-import { Canvas } from "../components/Canvas";
-import { PlayBox } from "../components/PlayBox";
-import { EditorComponent } from "../components/Editor";
-import { GameStatus } from "../domains";
-import { start, stop } from "../utils/";
+import { useEffect, useState } from "react";
+import { loadLevels } from "../utils/GameLogic/StorageLogic";
+import { ILevel, ILevels } from "../domains/ILevel";
+import './styles.css'
+import { Level } from "./LevelPage";
 
 export function MainPage() {
-    const [gameStatus, setGameStatus] = useState<GameStatus>(GameStatus.Stopped);
+    const [levels, setLevels] = useState<ILevels[]>([]);
+    const [currentLevel, setCurrentLevel] = useState<ILevel | undefined>(undefined);
 
-    function statusChanged(newStatus: GameStatus): void {
-        setGameStatus(newStatus);
-        if (newStatus === GameStatus.Running){
-            start(stopSimulation);
-        }
-        else {
-            stop();
-        }
+    useEffect(() => {
+        loadLevels(setData);
+    }, []);
+
+    function setData(levels: ILevels[]) : void {
+        setLevels(levels);
     }
 
-    function stopSimulation(): void {
-        setGameStatus(GameStatus.Stopped);
+    function goBack(): void {
+        setCurrentLevel(undefined);
     }
-
+    
     return (
-        <div className="d-flex justify-content-center align-items-center vh-100">
-            <Canvas/>
-            <div className="d-flex flex-column align-items-center justify-content-start">
-                <PlayBox setStatus={statusChanged} status={gameStatus}/>
-                <EditorComponent status={gameStatus}/> 
-            </div>
+        <div className="d-flex flex-column justify-content-center align-items-center vh-100">
+            {
+                currentLevel ? 
+                    <Level levelData={currentLevel} goBack={goBack}/> 
+                    :
+                levels.map((level, i) => 
+                    <div className="levelGroup card" key={i}>
+                        <h3>{level.name}</h3>
+                        <div>
+                            {level.levels.map((content, index) => 
+                                <div className="card" key={index}> 
+                                    <h5>Level {index+1}</h5>
+                                        <button className="btn btn-success" onClick={() => setCurrentLevel(content)}>
+                                            Play!
+                                        </button>  
+                                </div>
+                                  
+                            )}
+                        </div>
+                    </div>
+            )
+            }
             
         </div>
     );

@@ -1,10 +1,23 @@
 import Editor from '@monaco-editor/react';
 import { setEditorInput } from '../utils';
+import { GameStatus } from '../domains';
+import { useEffect, useState } from 'react';
 
-export const EditorComponent = () => {
+interface props {
+  status: GameStatus
+}
+
+export const EditorComponent = ({status} : props) => {
+  const [readOnly, setReadOnly] = useState<boolean>(false);
+  useEffect(() => {
+    setReadOnly(status === GameStatus.Running);
+  },[status])
+
+
   const options = {
         contextmenu: false,
-        minimap: {enabled: false}
+        minimap: {enabled: false},
+        readOnly: readOnly
     }
 
   function handleEditorChange(value : string | undefined) : void {
@@ -21,6 +34,7 @@ export const EditorComponent = () => {
       theme="vs-dark"
       options={options}
       onChange={(value) => handleEditorChange(value)}
+      
     />
   );
 }

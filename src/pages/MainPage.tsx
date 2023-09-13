@@ -11,11 +11,15 @@ export function MainPage() {
     function statusChanged(newStatus: GameStatus): void {
         setGameStatus(newStatus);
         if (newStatus === GameStatus.Running){
-            start();
+            start(stopSimulation);
         }
         else {
             stop();
         }
+    }
+
+    function stopSimulation(): void {
+        setGameStatus(GameStatus.Stopped);
     }
 
     return (
@@ -23,7 +27,7 @@ export function MainPage() {
             <Canvas/>
             <div className="d-flex flex-column align-items-center justify-content-start">
                 <PlayBox setStatus={statusChanged} status={gameStatus}/>
-                <EditorComponent/> 
+                <EditorComponent status={gameStatus}/> 
             </div>
             
         </div>

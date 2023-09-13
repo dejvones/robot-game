@@ -4,18 +4,17 @@ import { parseInput } from "./CommandsLogic";
 import { Error } from "../Messages";
 import { runSimulation, stopSimulation } from "./SimulateLogic";
 
-export function start(): void {
+export function start(stopCallback : () => void): void {
     if(!setCommandsIsOk()){
         Error('Invalid commands for robot');
-        return
+        stopCallback();
+        return;
     }
-    runSimulation();
+    runSimulation(stopCallback);
+    return;
 }
 
 export function stop(): void{
-    const actualRobots = graphics.filter(g => g instanceof Robot) as Robot[];
-    actualRobots.forEach(robot => robot.resetPosition());
-
     stopSimulation();
 }
 

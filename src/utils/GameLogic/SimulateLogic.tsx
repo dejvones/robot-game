@@ -3,18 +3,27 @@ import { Finish } from "../../models/Finish";
 import { Robot } from "../../models/Robot";
 import { Wall } from "../../models/Wall";
 import { redraw } from "../GraphicsLogic";
-import { Success } from "../Messages";
+import { Error, Success } from "../Messages";
 
 let simulation : NodeJS.Timeout;
+let timeout : NodeJS.Timeout;
 
-export function runSimulation(): void {
+export function runSimulation(stopCallback: () => void): void {
     const finishes = graphics.filter(g => g instanceof Finish) as Finish[];
     const walls = graphics.filter(g => g instanceof Wall) as Wall[];
 
+    timeout = setTimeout(function() {
+        Error('The journey took too long');
+        stopSimulation();
+        stopCallback();
+    }, 10000);
+
     simulation = setInterval(function() {
-        if (isAllDone()){
-            Success('Všichni roboti dotazili do cíle.');
+        if (isAllDone(finishes)){
+            clearTimeout(timeout);
             clearInterval(simulation);
+            Success('Level successfully completed');
+            stopCallback();
         }
         else {
             simulateStep(finishes, walls);
@@ -24,20 +33,33 @@ export function runSimulation(): void {
 }
 
 export function stopSimulation(): void {
+    const nextGraphics = graphics.map(graphic => {
+        if (graphic instanceof Robot){
+            const robot = graphic as Robot;
+            robot.resetPosition();
+            return robot;
+        }
+        return graphic;
+    })
+    setGraphics(nextGraphics);
+
+    clearTimeout(timeout);
     clearInterval(simulation);
     redraw();
 }
 
 function simulateStep(finishes : Finish[], walls : Wall[]) : void{
-    const actualRobots = graphics.filter(g => g instanceof Robot) as Robot[];
-    actualRobots.forEach(r => graphics.splice(graphics.indexOf(r), 1));
+    const nextGraphics = graphics.map(graphic => {
+        if (graphic instanceof Robot){
+            const robot = graphic as Robot;
+            return robot.isInFinish(finishes) ? robot : robot.move(walls);
+        }
+        return graphic;
+    })
 
-    const nextRobots = actualRobots.map(r => r.isInFinish(finishes) ? r : r.move(walls));
-    setGraphics([...graphics, ...nextRobots]);
+    setGraphics(nextGraphics);
 }
 
-function isAllDone() : boolean {
-    const robots = graphics.filter(g => g instanceof Robot) as Robot[];
-    const finishes = graphics.filter(g => g instanceof Finish) as Finish[];
-    return robots.every(r => r.isInFinish(finishes));
+function isAllDone(finishes : Finish[]) : boolean {
+    return (graphics.filter(g => g instanceof Robot) as Robot[]).some(r => r.isInFinish(finishes));
 }

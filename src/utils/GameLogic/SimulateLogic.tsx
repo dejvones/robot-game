@@ -16,7 +16,7 @@ export function runSimulation(stopCallback: () => void): void {
         Error('The journey took too long');
         stopSimulation();
         stopCallback();
-    }, 10000);
+    }, 60000);
 
     simulation = setInterval(function() {
         if (isAllDone(finishes)){

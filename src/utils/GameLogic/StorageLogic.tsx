@@ -1,6 +1,6 @@
 import { ctx } from "../../components/Canvas";
 import { redraw } from "../GraphicsLogic";
-import { setGraphics } from "..";
+import { canvasSize, setGraphics } from "..";
 import { GraphicType, IGraphicSave } from "../../domains";
 import { Finish, Graphic, Robot, Wall } from "../../models";
 import { ILevel, ILevels } from "../../domains/ILevel";
@@ -21,6 +21,7 @@ export function loadData(data : ILevel) : void{
                 break;
         }
     })
+    finalData = [...finalData, ...createBarrier()]
 
     setGraphics(finalData)
     redraw();
@@ -54,4 +55,13 @@ function getFiles(files : string[]): Promise<object[]> {
     );
 
     return Promise.all(promises);
+}
+
+function createBarrier() : Graphic[]{
+    return [
+        new Wall({x: -1, y: 0}, {width: 1, height: canvasSize.height}),
+        new Wall({x: 0, y: -1}, {width: canvasSize.width, height: 1}),
+        new Wall({x: canvasSize.width + 1, y : 0}, {width: 1, height: canvasSize.height}),
+        new Wall({x: 0, y: canvasSize.height + 1}, {width: canvasSize.width, height: 1})
+    ];
 }

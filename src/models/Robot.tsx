@@ -4,7 +4,7 @@ import { Position } from "../domains/IGraphic";
 import { Wall } from "./Wall";
 import { Directions, GraphicType, MoveCommand } from "../domains/enums";
 
-const speed = 2;
+const speed = 3;
 
 export class Robot extends Graphic {
     image : HTMLImageElement | undefined;
@@ -27,6 +27,8 @@ export class Robot extends Graphic {
 
     resetPosition(): void {
         this.position = this.startPosition;
+        this.commands = [];
+        this.direction = Directions.Up;
     }
 
     draw(){
@@ -75,8 +77,10 @@ export class Robot extends Graphic {
     }
 
     private turn(): void {
-        const topCommand = this.commands.pop();
-        if (!topCommand) return;
+        const topCommand = this.commands.at(1);
+        if (topCommand === undefined) return;
+        this.commands = this.commands.slice(2);
+        console.log(this.commands)
         switch(topCommand){
             case MoveCommand.Left:
                 this.direction = this.direction - 1;

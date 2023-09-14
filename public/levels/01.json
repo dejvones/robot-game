@@ -35,8 +35,19 @@
                         "y": 0
                     },
                     "size": {
-                        "width": 1200,
-                        "height": 200
+                        "width": 500,
+                        "height": 800
+                    }
+                },
+                {
+                    "type": 0,
+                    "position": {
+                        "x": 625,
+                        "y": 0
+                    },
+                    "size": {
+                        "width": 600,
+                        "height": 800
                     }
                 }
             ]
@@ -46,14 +57,14 @@
                 {
                     "type": 1,
                     "position": {
-                        "x": 550,
+                        "x": 800,
                         "y": 225
                     }
                 },
                 {
                     "type": 2,
                     "position":{
-                        "x": 540,
+                        "x": 300,
                         "y": 550
                     }
                 },
@@ -75,8 +86,43 @@
                         "y": 0
                     },
                     "size": {
+                        "width": 250,
+                        "height": 800
+                    }
+                },
+                {
+                    "type": 0,
+                    "position": {
+                        "x": 0,
+                        "y": 650
+                    },
+                    "size": {
                         "width": 1200,
-                        "height": 200
+                        "height": 150
+                    }
+                }
+                ,
+                {
+                    "type": 0,
+                    "position": {
+                        "x": 850,
+                        "y": 0
+                    },
+                    "size": {
+                        "width": 350,
+                        "height": 800
+                    }
+                }
+                ,
+                {
+                    "type": 0,
+                    "position": {
+                        "x": 400,
+                        "y": 275
+                    },
+                    "size": {
+                        "width": 850,
+                        "height": 500
                     }
                 }
             ]
@@ -87,7 +133,7 @@
                     "type": 1,
                     "position": {
                         "x": 550,
-                        "y": 225
+                        "y": 400
                     }
                 },
                 {
@@ -100,23 +146,46 @@
                 {
                     "type": 0,
                     "position": {
-                        "x": 0,
+                        "x": 100,
+                        "y": 475
+                    },
+                    "size": {
+                        "width": 1100,
+                        "height": 25
+                    }
+                },
+                {
+                    "type": 0,
+                    "position": {
+                        "x": 200,
                         "y": 0
                     },
                     "size": {
-                        "width": 1200,
+                        "width": 25,
                         "height": 200
                     }
                 },
                 {
                     "type": 0,
                     "position": {
-                        "x": 0,
+                        "x": 1000,
                         "y": 0
                     },
                     "size": {
-                        "width": 1200,
+                        "width": 25,
                         "height": 200
+                    }
+                }
+                ,
+                {
+                    "type": 0,
+                    "position": {
+                        "x": 400,
+                        "y": 400
+                    },
+                    "size": {
+                        "width": 25,
+                        "height": 100
                     }
                 }
             ]
